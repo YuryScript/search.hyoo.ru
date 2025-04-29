@@ -44,7 +44,7 @@ namespace $ {
 	export class $hyoo_search_api extends $mol_object2 {
 		
 		@ $mol_mem_key
-		static type( type: 'web' | 'image' ) {
+		static type( type: 'web' | 'image' | 'video' ) {
 			$mol_wire_solid()
 			const api = new this
 			api.type = $mol_const( type )
@@ -52,7 +52,7 @@ namespace $ {
 		}
 		
 		type() {
-			return 'web' as 'web' | 'image'
+			return 'web' as 'web' | 'image' | 'video'
 		}
 		
 		@ $mol_memo.method
@@ -61,7 +61,7 @@ namespace $ {
 			let done: ( gcs: typeof google.search.cse.element )=> void
 			const promise = new Promise< typeof google.search.cse.element >( d => done = d )
 			
-			const ready = ( type: 'web' | 'image' ) => (
+			const ready = ( type: 'web' | 'image' | 'video' ) => (
 				gname: string,
 				query: string,
 				promos: typeof Results.Value,

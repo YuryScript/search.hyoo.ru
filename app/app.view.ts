@@ -20,7 +20,7 @@ namespace $.$$ {
 		}
 		
 		type( next?: string ) {
-			return this.$.$mol_state_arg.value( 'type', next ) ?? 'WWW'
+			return this.$.$mol_state_arg.value( 'type', next )?.toUpperCase() ?? 'WWW'
 		}
 		
 		where( next?: string ) {
@@ -142,7 +142,6 @@ namespace $.$$ {
 		
 		@ $mol_mem
 		api() {
-			
 			const type = [
 				'PNG',
 				'SVG',
@@ -152,8 +151,8 @@ namespace $.$$ {
 				'BMP',
 				'ICO',
 				'RAW',
-				'Image'
-			].includes( this.type() ) ? 'image' : 'web'
+				'IMAGE'
+			].includes( this.type() ) ? (this.type() === 'VIDEO') ? 'video' : 'image' : 'web'
 			
 			return $mol_wire_sync( this.$.$hyoo_search_api.type( type ) )
 		
@@ -224,7 +223,6 @@ namespace $.$$ {
 		
 		@ $mol_mem_key
 		result_words( index: number ) {
-			
 			const stats = new Map< string, number >()
 			const text = this.result_title( index ) + ' ' + this.result_descr( index )
 			
@@ -242,7 +240,6 @@ namespace $.$$ {
 		
 		@ $mol_mem
 		words() {
-			
 			const total = new Map< string, number >()
 			const results = this.results_raw()
 			
@@ -266,6 +263,8 @@ namespace $.$$ {
 			all.sort( ( a, b )=> words.get( b )! - words.get( a )! )
 			return all as readonly string[]
 		}
+
+		type_filter() {}
 		
 		exclude_badge_title( word: string ) {
 			return '-' + word
@@ -320,6 +319,26 @@ namespace $.$$ {
 		searcher_link( index: number ) {
 			return this.searcher_list()[ index ] + encodeURIComponent( this.query_results() )
 		}
+
+		type_options = [
+			'www',
+			'video',
+			'image',
+			'png',
+			'svg',
+			'jpg',
+			'webp',
+			'gif',
+			'bmp',
+			'ico',
+			'raw',
+			'pdf',
+			'rtf',
+			'txt',
+			'xls',
+			'ppt',
+			'doc',
+		]
 		
 	}
 	
